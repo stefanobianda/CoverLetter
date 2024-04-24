@@ -31,16 +31,3 @@ build/
 
 ### VS Code ###
 .vscode/
-
-### Application ###
-**/win.application.properties
-
-### Module ###
-**/.settings
-**/.mvn
-**/bin
-
-### specific project files ###
-.env
-db_root_password_prod.txt
-
