@@ -31,3 +31,11 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Module ###
+**/.settings
+**/.mvn
+**/bin
+
+### specific project files ###
+.env
