@@ -1,5 +1,7 @@
 package ch.sbsoft.coverletter.specification;
 
+import java.net.URI;
+
 public class MappingPath {
 
 	// Free
