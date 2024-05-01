@@ -15,6 +15,8 @@ import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
+import ch.sbsoft.coverletter.specification.MappingPath;
+
 @SpringBootTest
 @AutoConfigureMockMvc
 @ImportAutoConfiguration(ThymeleafAutoConfiguration.class)
@@ -26,13 +28,15 @@ class CoverletterApplicationTests {
 	@Test
 	@WithAnonymousUser
 	void getIndexAnonymousMock() throws Exception {
-		mvc.perform(get("/")).andExpect(status().isOk()).andExpect(content().string(containsString("Login")));
+		mvc.perform(get(MappingPath.HOME)).andExpect(status().isOk()).andExpect(content().string(containsString("Welcome to Cover Letter Generator")));
+		mvc.perform(get(MappingPath.INDEX)).andExpect(status().isOk()).andExpect(content().string(containsString("Welcome to Cover Letter Generator")));
 	}
 
 	@Test
 	@WithMockUser
 	void getIndexUserRoleMock() throws Exception {
-		mvc.perform(get("/")).andExpect(status().isOk()).andExpect(content().string(containsString("Logout")));
+		mvc.perform(get(MappingPath.HOME)).andExpect(status().isOk()).andExpect(content().string(containsString("Welcome back to Cover Letter Generator")));
+		mvc.perform(get(MappingPath.INDEX)).andExpect(status().isOk()).andExpect(content().string(containsString("Welcome back to Cover Letter Generator")));
 	}
 
 }

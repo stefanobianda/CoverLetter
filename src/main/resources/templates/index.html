@@ -16,7 +16,7 @@
 </div>
 <div sec:authorize="isAuthenticated()" th:with="url=(${T(ch.sbsoft.coverletter.specification.MappingPath).LOGOUT_URL})">
     <div class="container">
-        <h1><span th:text="#{label.welcome.welcome}">Welcome</span> <span sec:authentication="name"/></h1>
+        <h1><span th:text="#{label.welcome.logged}">Welcome</span> <span sec:authentication="name"/></h1>
     </div>
     <a class="nav-link" th:href="@{${url}}">Logout</a>
 </div>
