@@ -1,25 +1,25 @@
 spring:
-#  application:
-#    name: coverletter
-#  datasource:
-#    url: ${CL_URL_DB_PROD}
-#    username: ${CL_USER_DB_PROD}
-#    password: ${CL_PASSWORD_DB_PROD}
-#  jpa:
-#    properties:
-#      hibernate:
-#        dialect: org.hibernate.dialect.MySQLDialect
-#    hibernate:
-#      ddl-auto: update
-#  mvc:
-#    format:
-#      date: dd-MM-yyyy
-#logging:
-#  level:
-#    org:
-#      springframework:
-#        web: info
-#      hibernate: info
+  application:
+    name: coverletter
+  datasource:
+    url: ${CL_URL_DB_PROD}
+    username: ${CL_USER_DB_PROD}
+    password: ${CL_PASSWORD_DB_PROD}
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: update
+  mvc:
+    format:
+      date: dd-MM-yyyy
+logging:
+  level:
+    org:
+      springframework:
+        web: info
+      hibernate: info
 server:
   port: 9190
 security:

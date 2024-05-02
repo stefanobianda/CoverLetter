@@ -1,6 +1,8 @@
 package ch.sbsoft.coverletter;
 
 import static org.hamcrest.CoreMatchers.containsString;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestBuilders.formLogin;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -11,6 +13,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.ApplicationContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -23,7 +28,10 @@ class LoginApplicationTests {
 
 	@Autowired
 	private MockMvc mvc;
+	@Autowired
+	ApplicationContext context;
 	
+	// Login
 	@Test
 	@WithAnonymousUser
 	void getLoginAnonymousMock() throws Exception {
@@ -51,5 +59,18 @@ class LoginApplicationTests {
 		mvc.perform(formLogin().user("user").password("wrong")).andExpect(redirectedUrl("/login?error")).andExpect(status().isFound());
 	}
 
+	// Logout
+	@Test
+	@WithAnonymousUser
+	void getLogoutAnonymousMock() throws Exception {
+		mvc.perform(get(MappingPath.LOGOUT_URL)).andExpect(status().isOk()).andExpect(content().string(containsString("Are you sure you want to log out")));
+	}
+
+	@Test
+	@WithMockUser
+	void getLogoutUserRoleMock() throws Exception {
+		mvc.perform(get(MappingPath.LOGOUT_URL)).andExpect(status().isOk()).andExpect(content().string(containsString("Are you sure you want to log out")));
+	}
+	
 
 }
