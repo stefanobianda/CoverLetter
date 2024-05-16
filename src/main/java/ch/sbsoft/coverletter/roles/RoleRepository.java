@@ -1,7 +1,9 @@
 package ch.sbsoft.coverletter.roles;
 
-public interface RoleRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
 
-	Object findByName(String string);
+public interface RoleRepository extends JpaRepository<Role, Long> {
+
+	Role findByName(String name);
 
 }

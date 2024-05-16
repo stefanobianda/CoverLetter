@@ -6,11 +6,11 @@ spring:
     username: ${CL_USER_DB_PROD}
     password: ${CL_PASSWORD_DB_PROD}
   jpa:
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.MySQLDialect
+#    properties:
+#      hibernate:
+#        dialect: org.hibernate.dialect.MySQLDialect
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
   mvc:
     format:
       date: dd-MM-yyyy

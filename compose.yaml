@@ -9,6 +9,7 @@ services:
     ports:
       - '3316:3306'
     volumes:
+      - .docker/setup.sql:/docker-entrypoint-initdb.d/setup.sql
       - /Users/stefano/docker/work/MariaDB/coverletter:/var/lib/mysql
   adminer:
     image: adminer
