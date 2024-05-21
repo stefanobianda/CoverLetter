@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: coverlettertest
+  datasource:
+    url: jdbc:h2:mem:testdbcl;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password: password
+    driverClassName: org.h2.Driver
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create-drop
+    generate-ddl: true
+    defer-datasource-initialization: true
+  mvc:
+    format:
+      date: dd-MM-yyyy
+  main:
+    allow-bean-definition-overriding: true
+logging:
+  level:
+    org:
+      springframework:
+        web: info
+      hibernate: info
+server:
+  port: 9190
+security:
+  enable:
+    csrf: true

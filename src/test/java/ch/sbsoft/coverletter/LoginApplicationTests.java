@@ -1,8 +1,6 @@
 package ch.sbsoft.coverletter;
 
 import static org.hamcrest.CoreMatchers.containsString;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestBuilders.formLogin;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -14,8 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -24,6 +21,7 @@ import ch.sbsoft.coverletter.specification.MappingPath;
 
 @SpringBootTest
 @AutoConfigureMockMvc
+
 class LoginApplicationTests {
 
 	@Autowired
@@ -46,7 +44,7 @@ class LoginApplicationTests {
 	
 	@Test
 	void performLoginValidUserMock() throws Exception {
-		mvc.perform(formLogin().user("user").password("password")).andExpect(redirectedUrl("/")).andExpect(status().isFound());
+		mvc.perform(formLogin().user("admin@test.com").password("pass")).andExpect(redirectedUrl("/")).andExpect(status().isFound());
 	}
 
 	@Test
