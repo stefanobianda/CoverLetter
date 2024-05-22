@@ -12,6 +12,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
@@ -19,13 +21,10 @@ import ch.sbsoft.coverletter.users.User;
 import ch.sbsoft.coverletter.users.UserRepository;
 import ch.sbsoft.coverletter.users.UserService;
 
-@ExtendWith(MockitoExtension.class)
+@SpringBootTest
 class UsersTests {
 
-	@Mock
-	private UserRepository userRepositoryMock;
-
-	@InjectMocks
+	@Autowired
 	private UserService userService;
 
 	
@@ -38,17 +37,15 @@ class UsersTests {
 
 		@Test
 	void testFindUserByUsername() {
-		when(userRepositoryMock.findByUsername("stefanobianda@ik.me")).thenReturn(Optional.of(new User((long) 12,"Stefano", "Bianda", "stefanobianda@ik.me", "password", true, true, true, true, null)));
-		User user = userService.findUserByUsername("stefanobianda@ik.me");
-		assert(user.getUsername().equalsIgnoreCase("stefanobianda@ik.me"));
+		User user = userService.findUserByUsername("admin@test.com");
+		assert(user.getUsername().equalsIgnoreCase("admin@test.com"));
 
 	}
 
 	@Test
 	void testFindUserByEmailNotFound() {
-		when(userRepositoryMock.findByUsername("stefanobiand@ik.me")).thenThrow(new UsernameNotFoundException("Could not find user"));
 		try {
-			userService.findUserByUsername("stefanobiand@ik.me");
+			userService.findUserByUsername("nouser@test.com");
 			fail("Expected exception was not thrown");
 		} catch (UsernameNotFoundException e) {
 			// Assert that the exception message is correct
