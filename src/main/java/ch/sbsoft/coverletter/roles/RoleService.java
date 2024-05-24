@@ -21,5 +21,14 @@ public class RoleService {
 		return roleList;
 	}
 	
+	public Role getRoleCreateIfNotExist(String roleName) {
+		Role role = roleRepository.findByName(roleName);
+		if (role == null) {
+			Role newRole = new Role();
+			newRole.setName(roleName);
+			role = roleRepository.save(newRole);
+		}
+		return role;
+	}
 
 }

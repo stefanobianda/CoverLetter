@@ -42,8 +42,26 @@ class RolesTests {
 	@Test
 	void testFindAllRoles() {
 		List<Role> roleList = roleService.findAll();
-		assertEquals(2, roleList.size());
+		assert(roleList.size() >= 2);
+		assert(roleList.size() <= 3);
 	}
 
+	@Test
+	void testRoleCreateIfNotExist() {
+		int size = roleService.findAll().size();
+		Role role = roleService.getRoleCreateIfNotExist("ROLE_USER");
+		assertNotNull(role);
+		assert(role.getName().equals("ROLE_USER"));
+		assertEquals(size, roleService.findAll().size());
+	}
+	
+	@Test
+	void testRoleCreateIfNotExistNew() {
+		int size = roleService.findAll().size();
+		Role role = roleService.getRoleCreateIfNotExist("ROLE_NEW");
+		assertNotNull(role);
+		assert(role.getName().equals("ROLE_NEW"));
+		assertEquals(size + 1, roleService.findAll().size());
+	}
 	
 }

@@ -11,7 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import ch.sbsoft.coverletter.roles.Role;
-import ch.sbsoft.coverletter.roles.RoleRepository;
+import ch.sbsoft.coverletter.roles.RoleService;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -21,7 +21,7 @@ public class UserService implements UserDetailsService {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	@Autowired
-	private RoleRepository roleRepository;
+	private RoleService roleService;
 
 	public User findUserByUsername(String username) {
 		Optional<User> user = userRepository.findByUsername(username);
@@ -38,20 +38,11 @@ public class UserService implements UserDetailsService {
 
 	public User addUser(User user) {
 	    user.setPassword(passwordEncoder.encode(user.getPassword())); 
-		Role role = getRoleCreateIfNotExist(Role.ROLE_USER);
+		Role role = roleService.getRoleCreateIfNotExist(Role.ROLE_USER);
 		user.setRoles(Set.of(role));
 		return userRepository.save(user);
 	}
 
-	private Role getRoleCreateIfNotExist(String roleName) {
-		Role role = roleRepository.findByName(roleName);
-		if (role == null) {
-			Role newRole = new Role();
-			newRole.setName(roleName);
-			role = roleRepository.save(newRole);
-		}
-		return role;
-	}
 
 	public User update(User user) {
 	    user.setPassword(passwordEncoder.encode(user.getPassword())); 
