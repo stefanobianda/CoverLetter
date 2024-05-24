@@ -19,13 +19,11 @@ class UsersTests {
 
 	@Autowired
 	private UserService userService;
-
 	
 	@Test
 	void testValidObjects() {
 		assertNotNull(userService);
 		assert(userService instanceof UserDetailsService);
-
 	}
 
 	@Test
@@ -63,5 +61,18 @@ class UsersTests {
 			// Assert that the exception message is correct
 			assertEquals("Could not find user", e.getMessage());
 		}
+	}
+	
+	@Test 
+	void testAddUser() {
+		User user = new User();
+		user.setUsername("adminnew@test.com");
+		user.setPassword("password");
+		user.setFirstName("First");
+		user.setLastName("Last");
+		User userAdd = userService.addUser(user);
+		UserDetails userFind = userService.findUserByUsername("adminnew@test.com");
+		assert(userFind.getUsername().equalsIgnoreCase(user.getUsername()));
+		assert(userFind.getUsername().equalsIgnoreCase(userAdd.getUsername()));
 	}
 }
