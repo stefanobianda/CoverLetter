@@ -2,6 +2,7 @@ package ch.sbsoft.coverletter.controller;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -28,14 +29,22 @@ class RegistrationTest {
 	// Registration
 	@Test
 	@WithAnonymousUser
-	void getLoginAnonymousMock() throws Exception {
+	void getRegistrationAnonymous() throws Exception {
 		mvc.perform(get(MappingPath.REGISTRATION)).andExpect(status().isOk()).andExpect(content().string(containsString("Please register")));
 	}
 
 	@Test
 	@WithMockUser
-	void getLoginUserRoleMock() throws Exception {
+	void getRegistrationUserRole() throws Exception {
 		mvc.perform(get(MappingPath.REGISTRATION)).andExpect(status().isOk()).andExpect(content().string(containsString("Please register")));
 	}
 
+	@Test
+	void postRegistration() throws Exception {
+		mvc.perform(post(MappingPath.REGISTRATION).param("FirstName", "First")
+				                                  .param("LastName", "Last")
+				                                  .param("username", "first.last@test.com")
+				                                  .param("password", "pass")
+				                                  .param("passwordVerify", "pass")).andExpect(status().isCreated());
+	}
 }
