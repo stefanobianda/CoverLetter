@@ -5,6 +5,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +42,8 @@ class RegistrationTest {
 
 	@Test
 	void postRegistration() throws Exception {
-		mvc.perform(post(MappingPath.REGISTRATION).param("FirstName", "First")
+		mvc.perform(post(MappingPath.REGISTRATION).with(csrf())
+				                                  .param("FirstName", "First")
 				                                  .param("LastName", "Last")
 				                                  .param("username", "first.last@test.com")
 				                                  .param("password", "pass")

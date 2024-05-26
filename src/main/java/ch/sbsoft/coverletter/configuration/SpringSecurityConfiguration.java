@@ -22,7 +22,7 @@ public class SpringSecurityConfiguration implements WebMvcConfigurer {
 
 	@Bean
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		http
+		http.csrf(Customizer.withDefaults())
 			.authorizeHttpRequests(authorize -> authorize
 				.requestMatchers(MappingPath.ENDPOINTS_WHITELIST).permitAll()
 				.anyRequest().authenticated()
