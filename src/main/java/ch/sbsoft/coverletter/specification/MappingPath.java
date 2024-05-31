@@ -11,6 +11,7 @@ public class MappingPath {
 	public static final String LOGIN_FAIL_URL = LOGIN_URL + "?error";
 	public static final String SETTING = "/setting";
 	public static final String REGISTRATION = "/registration";
+	public static final String REGISTRATION_SAVE = "/registration";
 
 	public static final String[] ENDPOINTS_WHITELIST = { "/", "/css/**", LOGIN_URL, INDEX, REGISTRATION };
 
